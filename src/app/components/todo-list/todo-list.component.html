@@ -1,0 +1,53 @@
+<!-- Search bar -->
+<div class="list-search">
+  <div class="field">
+    <div class="control has-icons-left">
+      <input
+        class="input is-small"
+        type="text"
+        placeholder="Buscar tarea..."
+        [(ngModel)]="searchQuery"
+        (input)="applyFilter()"
+      />
+      <span class="icon is-left is-small">🔍</span>
+    </div>
+  </div>
+</div>
+
+<!-- Add button -->
+<div class="list-add-btn" (click)="addNewClicked.emit()">
+  <span class="icon">＋</span>
+  <span>Nueva tarea</span>
+</div>
+
+<!-- Loading -->
+<div *ngIf="loading" class="list-loading">
+  <span class="loader-ring"></span>
+</div>
+
+<!-- Empty state -->
+<div *ngIf="!loading && filtered.length === 0" class="list-empty">
+  <p>No hay tareas aún 🎉</p>
+</div>
+
+<!-- Task items -->
+<div class="todo-items" *ngIf="!loading">
+  <div
+    *ngFor="let todo of filtered"
+    class="todo-item"
+    [class.is-active]="todo.id === selectedId"
+    (click)="select(todo)"
+  >
+    <div class="todo-item-dot" [class]="'dot-' + todo.status"></div>
+    <div class="todo-item-body">
+      <div class="todo-item-title">{{ todo.title }}</div>
+      <div class="todo-item-meta" *ngIf="todo.targetDate">
+        <span class="icon is-small">📅</span>
+        {{ formatDate(todo.targetDate) }}
+      </div>
+    </div>
+    <span class="tag is-rounded is-small" [class]="getStatusClass(todo.status)">
+      {{ todo.status }}
+    </span>
+  </div>
+</div>

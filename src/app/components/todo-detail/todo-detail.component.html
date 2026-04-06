@@ -1,0 +1,92 @@
+<div class="detail-empty" *ngIf="!todo">
+  <div class="detail-empty-icon">📋</div>
+  <p>Selecciona una tarea para ver el detalle</p>
+</div>
+
+<div class="detail-panel" *ngIf="todo">
+  <!-- Header -->
+  <div class="detail-header">
+    <h2 class="detail-title">Detalle de tarea</h2>
+    <button class="delete is-small" (click)="closed.emit()"></button>
+  </div>
+
+  <!-- Form -->
+  <div class="detail-form">
+    <div class="field">
+      <label class="label">Título <span class="has-text-danger">*</span></label>
+      <div class="control">
+        <input class="input" type="text" [(ngModel)]="form.title" placeholder="Título de la tarea" />
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Descripción</label>
+      <div class="control">
+        <textarea class="textarea" rows="3" [(ngModel)]="form.description" placeholder="Descripción opcional..."></textarea>
+      </div>
+    </div>
+
+    <div class="columns">
+      <div class="column">
+        <div class="field">
+          <label class="label">Fecha límite</label>
+          <div class="control">
+            <input class="input" type="date" [(ngModel)]="form.targetDate" />
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="field">
+          <label class="label">Responsable</label>
+          <div class="control">
+            <input class="input" type="text" [(ngModel)]="form.assignedUserName" placeholder="Nombre" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Estado</label>
+      <div class="control">
+        <div class="select is-fullwidth">
+          <select [(ngModel)]="form.status">
+            <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Meta info -->
+    <div class="detail-meta">
+      <small class="has-text-grey">
+        Creada: {{ todo.createdAt | date:'dd MMM yyyy, HH:mm' }}
+      </small>
+    </div>
+
+    <!-- Actions -->
+    <div class="detail-actions">
+      <button
+        class="button is-primary"
+        [class.is-loading]="saving"
+        (click)="save()"
+        [disabled]="!form.title.trim()"
+      >
+        💾 Guardar
+      </button>
+
+      <button
+        class="button"
+        [class.is-danger]="confirmDelete"
+        [class.is-light]="!confirmDelete"
+        [class.is-loading]="deleting"
+        (click)="remove()"
+      >
+        {{ confirmDelete ? '⚠️ Confirmar eliminación' : '🗑️ Eliminar' }}
+      </button>
+
+      <button *ngIf="confirmDelete" class="button is-light" (click)="confirmDelete = false">
+        Cancelar
+      </button>
+    </div>
+  </div>
+</div>

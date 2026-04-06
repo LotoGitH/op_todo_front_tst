@@ -1,0 +1,55 @@
+<div class="form-header">
+  <h3 class="form-title">➕ Nueva tarea</h3>
+  <button class="delete is-small" (click)="cancelled.emit()"></button>
+</div>
+
+<div class="form-body">
+  <div class="notification is-danger is-light" *ngIf="error">{{ error }}</div>
+
+  <div class="field">
+    <label class="label">Título <span class="has-text-danger">*</span></label>
+    <div class="control">
+      <input
+        class="input"
+        type="text"
+        [(ngModel)]="form.title"
+        placeholder="¿Qué hay que hacer?"
+        (keyup.enter)="submit()"
+        autofocus
+      />
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Descripción</label>
+    <div class="control">
+      <textarea class="textarea" rows="2" [(ngModel)]="form.description" placeholder="Descripción opcional..."></textarea>
+    </div>
+  </div>
+
+  <div class="columns">
+    <div class="column">
+      <div class="field">
+        <label class="label">Fecha límite</label>
+        <div class="control">
+          <input class="input" type="date" [(ngModel)]="form.targetDate" />
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="field">
+        <label class="label">Responsable</label>
+        <div class="control">
+          <input class="input" type="text" [(ngModel)]="form.assignedUserName" placeholder="Nombre" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button class="button is-primary" [class.is-loading]="saving" (click)="submit()">
+      Crear tarea
+    </button>
+    <button class="button is-light" (click)="cancelled.emit()">Cancelar</button>
+  </div>
+</div>

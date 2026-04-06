@@ -1,0 +1,71 @@
+.app-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background: #121212;
+  color: #e0e0e0;
+}
+
+/* ── Sidebar nav (iconos) ─────────────────────── */
+.app-sidebar-nav {
+  width: 56px;
+  background: #0d0d0d;
+  border-right: 1px solid #1e1e1e;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 0;
+  gap: 4px;
+}
+
+.sidebar-logo {
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+}
+
+.sidebar-nav-item {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #555;
+  transition: background 0.15s, color 0.15s;
+  &:hover { background: #1e1e1e; color: #aaa; }
+  &.is-active { background: #1e1e1e; color: #6c63ff; }
+  &.sidebar-bottom { margin-top: auto; }
+}
+
+/* ── Sidebar lista ────────────────────────────── */
+.app-sidebar-list {
+  width: 280px;
+  min-width: 240px;
+  background: #161616;
+  border-right: 1px solid #1e1e1e;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sidebar-list-header {
+  padding: 20px 16px 8px;
+  border-bottom: 1px solid #1e1e1e;
+}
+
+.sidebar-list-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ── Main area ────────────────────────────────── */
+.app-main {
+  flex: 1;
+  background: #121212;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
